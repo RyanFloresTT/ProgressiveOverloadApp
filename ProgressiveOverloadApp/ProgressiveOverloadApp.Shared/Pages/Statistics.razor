@@ -1,0 +1,49 @@
+﻿@page "/statistics"
+
+<PageTitle>Stats</PageTitle>
+
+@inject IWorkoutService WorkoutService
+
+<MudChart ChartType="ChartType.Line" ChartSeries="ChartData" XAxisLabels="@DateLabels"/>
+
+@code {
+    string[] DateLabels { get; set; } = [];
+    List<ChartSeries> ChartData { get; set; } =[];
+
+    protected override void OnInitialized()
+    {
+        var workouts = WorkoutService.GetWorkouts();
+        var allDates = new HashSet<string>();
+
+        foreach (var workout in workouts)
+        {
+            var history = workout.OverloadHistory;
+            if (history.Any())
+            {
+                var groupedHistory = history
+                    .GroupBy(h => h.Date)
+                    .Select(g => new { Date = g.Key, MaxWeight = g.Max(h => h.Weight) })
+                    .OrderBy(g => DateTime.Parse(g.Date))
+                    .ToList();
+
+                foreach (var entry in groupedHistory)
+                {
+                    allDates.Add(entry.Date);
+                }
+
+                ChartData.Add(new ChartSeries
+                    {
+                        Name = workout.Name,
+                        Data = groupedHistory.Select(g => (double)g.MaxWeight).ToArray()
+                    });
+            }
+        }
+
+        DateLabels = allDates
+            .Select(d => DateTime.Parse(d))
+            .OrderBy(d => d)
+            .Select(d => d.ToShortDateString())
+            .ToArray();
+    }
+
+}

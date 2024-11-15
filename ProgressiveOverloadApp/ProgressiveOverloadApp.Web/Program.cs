@@ -14,6 +14,7 @@ builder.Services.AddMudServices();
 
 // Add device-specific services used by the ProgressiveOverloadApp.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
+builder.Services.AddSingleton<IWorkoutService, MockWorkoutService>();
 
 var app = builder.Build();
 

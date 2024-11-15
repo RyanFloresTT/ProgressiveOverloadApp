@@ -2,7 +2,6 @@
 using MudBlazor.Services;
 using ProgressiveOverloadApp.Services;
 using ProgressiveOverloadApp.Shared.Services;
-using MudBlazor.Services;
 
 namespace ProgressiveOverloadApp
 {
@@ -21,6 +20,7 @@ namespace ProgressiveOverloadApp
 
             // Add device-specific services used by the ProgressiveOverloadApp.Shared project
             builder.Services.AddSingleton<IFormFactor, FormFactor>();
+            builder.Services.AddSingleton<IWorkoutService, MockWorkoutService>();
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddMudServices();

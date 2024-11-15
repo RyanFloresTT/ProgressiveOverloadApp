@@ -23,11 +23,13 @@ public class WorkoutProgressionTests {
         });
     }
     [Test]
-    public void ShouldIncreaseWeight_WhenUserCompletesFullSet() {
+    public void ShouldIncreaseWeight_WhenUserCompletesFullSet()
+    {
         // Arrange
-        var workout = new Workout { 
-            Reps = [ 6, 6, 6, 6 ], 
-            TargetWeight = 100 
+        var workout = new Workout
+        {
+            Reps = [6, 6, 6, 6],
+            TargetWeight = 100
         };
 
         // Act
@@ -36,8 +38,25 @@ public class WorkoutProgressionTests {
         // Assert
         Assert.Multiple(() => {
             Assert.That(workout.TargetWeight, Is.EqualTo(105));
-            Assert.That(workout.Reps, Is.EqualTo(new List<int> { 7, 6, 5, 4}));
+            Assert.That(workout.Reps, Is.EqualTo(new List<int> { 7, 6, 5, 4 }));
         });
+    }
+    [Test]
+    public void ShouldAddDateWithWeight_WhenUserCompletesFullSet()
+    {
+        // Arrange
+        var workout = new Workout
+        {
+            Reps = [6, 6, 6, 6],
+            TargetWeight = 100
+        };
+
+        // Act
+        workout.Progress();
+
+        // Assert
+        string date = DateTime.Now.ToShortDateString();
+        Assert.That(workout.OverloadHistory[0], Is.EqualTo((date, 105)));
     }
 
 }
