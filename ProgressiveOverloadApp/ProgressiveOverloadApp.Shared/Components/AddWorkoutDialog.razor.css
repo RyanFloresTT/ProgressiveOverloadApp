@@ -1,0 +1,9 @@
+.dialog-content {
+    padding: 16px;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px 16px;
+}

@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressiveOverloadApp", "ProgressiveOverloadApp\ProgressiveOverloadApp\ProgressiveOverloadApp.csproj", "{ADB31D54-1146-4618-82B4-031A185840AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressiveOverloadApp.Shared", "ProgressiveOverloadApp\ProgressiveOverloadApp.Shared\ProgressiveOverloadApp.Shared.csproj", "{E2AF55DC-8917-4778-8187-DB91D1187714}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressiveOverloadApp.Web", "ProgressiveOverloadApp\ProgressiveOverloadApp.Web\ProgressiveOverloadApp.Web.csproj", "{6493AC7F-C4BD-4EDF-9B05-5AF9CB95EA98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressiveOverloadApp.Web.Client", "ProgressiveOverloadApp\ProgressiveOverloadApp.Web.Client\ProgressiveOverloadApp.Web.Client.csproj", "{0FFD545F-F9E5-44E0-8F52-2389B791067D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressiveOverloadApp.Tests", "ProgressiveOverloadApp.Tests\ProgressiveOverloadApp.Tests.csproj", "{EC321917-5F24-4A4B-AE34-E5BF794A4983}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADB31D54-1146-4618-82B4-031A185840AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADB31D54-1146-4618-82B4-031A185840AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADB31D54-1146-4618-82B4-031A185840AD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{ADB31D54-1146-4618-82B4-031A185840AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADB31D54-1146-4618-82B4-031A185840AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2AF55DC-8917-4778-8187-DB91D1187714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2AF55DC-8917-4778-8187-DB91D1187714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2AF55DC-8917-4778-8187-DB91D1187714}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2AF55DC-8917-4778-8187-DB91D1187714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6493AC7F-C4BD-4EDF-9B05-5AF9CB95EA98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6493AC7F-C4BD-4EDF-9B05-5AF9CB95EA98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6493AC7F-C4BD-4EDF-9B05-5AF9CB95EA98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6493AC7F-C4BD-4EDF-9B05-5AF9CB95EA98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FFD545F-F9E5-44E0-8F52-2389B791067D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FFD545F-F9E5-44E0-8F52-2389B791067D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FFD545F-F9E5-44E0-8F52-2389B791067D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FFD545F-F9E5-44E0-8F52-2389B791067D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC321917-5F24-4A4B-AE34-E5BF794A4983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC321917-5F24-4A4B-AE34-E5BF794A4983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC321917-5F24-4A4B-AE34-E5BF794A4983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC321917-5F24-4A4B-AE34-E5BF794A4983}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

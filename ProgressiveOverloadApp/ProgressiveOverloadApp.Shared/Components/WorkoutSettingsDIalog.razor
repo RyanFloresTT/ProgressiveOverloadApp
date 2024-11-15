@@ -1,0 +1,47 @@
+﻿@using ProgressiveOverloadApp.Shared.Data.Models
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">Edit Workout</MudText>
+    </TitleContent>
+
+    <DialogContent>
+        <MudTextField @bind-Value="Workout.Name" Label="Workout Name" Required="true" />
+        <MudNumericField @bind-Value="Workout.TargetWeight" Label="Target Weight" Required="true" />
+        <MudNumericField @bind-Value="Workout.WeightIncrement" Label="Weight Increment" Required="true" />
+        <MudNumericField @bind-Value="RepsInput" Label="Reps (for each set)" Required="true" />
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="SaveChanges" Color="Color.Primary">Save</MudButton>
+        <MudButton OnClick="Cancel" Color="Color.Secondary">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public Workout Workout { get; set; }
+    private int RepsInput { get; set; }
+
+    protected override void OnInitialized()
+    {
+        RepsInput = Workout.Reps.Distinct().Count() == 1 ? Workout.Reps[0] : 0;
+    }
+
+    private void SaveChanges()
+    {
+        if (string.IsNullOrWhiteSpace(Workout.Name) || Workout.TargetWeight <= 0 || RepsInput <= 0)
+        {
+            Snackbar.Add("Please fill in all fields", Severity.Warning);
+            return;
+        }
+
+        Workout.Reps = Enumerable.Repeat(RepsInput, 4).ToList();
+
+        MudDialog.Close(DialogResult.Ok(Workout));
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

@@ -1,0 +1,66 @@
+﻿@using ProgressiveOverloadApp.Shared.Data.Models
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h5" Align="Align.Center">Add New Workout</MudText>
+    </TitleContent>
+
+    <DialogContent>
+        <MudContainer Class="dialog-content">
+            <MudTextField @bind-Value="WorkoutName" Label="Workout Name" Required="true" Immediate="true"
+            Placeholder="e.g., Bench Press"
+            HelperText="Enter the name of the workout"
+            Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.FitnessCenter" />
+
+            <MudNumericField @bind-Value="TargetWeight" Label="Starting Weight" Required="true"
+            Immediate="true" Placeholder="e.g., 100 lbs"
+            HelperText="Set the starting weight for the workout"
+            Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Scale" />
+
+            <MudNumericField @bind-Value="RepsInput" Label="Starting Reps" Required="true" Immediate="true"
+            Placeholder="e.g., 5" Typo="Typo.body2"
+            HelperText="Enter the number of reps for each set"
+            Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Repeat" />
+
+            <MudNumericField @bind-Value="WeightIncrement" Label="Weight Increment" Required="true" />
+        </MudContainer>
+    </DialogContent>
+
+    <DialogActions>
+        <MudContainer Class="dialog-actions">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateWorkout">Create Workout</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="Cancel">Cancel</MudButton>
+        </MudContainer>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    string WorkoutName { get; set; } = string.Empty;
+    int TargetWeight { get; set; }
+    int RepsInput { get; set; }
+    int WeightIncrement { get; set; } = 5;
+
+    private void CreateWorkout()
+    {
+        if (string.IsNullOrWhiteSpace(WorkoutName) || TargetWeight <= 0 || RepsInput <= 0 || WeightIncrement <= 0)
+        {
+            Snackbar.Add("Please fill in all fields", Severity.Warning);
+            return;
+        }
+
+        var newWorkout = new Workout
+            {
+                Name = WorkoutName,
+                TargetWeight = TargetWeight,
+                Reps = Enumerable.Repeat(RepsInput, 4).ToList(),
+                WeightIncrement = WeightIncrement,
+            };
+
+        MudDialog.Close(DialogResult.Ok(newWorkout));
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

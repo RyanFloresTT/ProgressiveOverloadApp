@@ -1,0 +1,73 @@
+﻿@using ProgressiveOverloadApp.Shared.Data.Models
+@inject IDialogService DialogService
+
+<MudCard Class="workout-card" Elevation="4">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Align="Align.Center" Typo="Typo.h5">@Workout.Name</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick="ShowDeleteConfirmation" />
+            <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" OnClick="ShowSettingsDialog" />
+        </CardHeaderActions>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudText Class="mb-4" Align="Align.Center" Typo="Typo.body1">Reps:</MudText>
+
+        <MudGrid Class="mb-4" Justify="Justify.Center">
+            @foreach (var rep in Workout.Reps)
+            {
+                <MudItem>
+                    <MudText Typo="Typo.h6">@rep</MudText>
+                </MudItem>
+            }
+        </MudGrid>
+
+        <MudText Align="Align.Center" Typo="Typo.h6">@Workout.TargetWeight lbs</MudText>
+    </MudCardContent>
+
+    <MudCardActions Style="display: flex; justify-content: center;">
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="ProgressWorkout">Progress</MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter]
+    public Workout Workout { get; set; }
+
+    void ProgressWorkout()
+    {
+        Workout.Progress();
+        StateHasChanged();
+    }
+
+    async Task ShowDeleteConfirmation()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var result = await DialogService.ShowMessageBox(
+            "Confirm Delete",
+            "Are you sure you want to delete this workout?",
+            yesText: "Delete", cancelText: "Cancel"
+        );
+
+        if (result == true)
+        {
+            // handle delete here
+        }
+    }
+
+    async Task ShowSettingsDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var parameters = new DialogParameters { ["Workout"] = Workout };
+        var dialog = DialogService.Show<WorkoutSettingsDIalog>("Edit Workout", parameters, options);
+        var result = await dialog.Result;
+
+        if (result != null && !result.Canceled)
+        {
+            Workout = result.Data as Workout;
+        }
+    }
+
+}

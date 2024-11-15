@@ -1,0 +1,44 @@
+﻿@page "/workouts"
+@inject IDialogService DialogService
+@using MudBlazor
+@using ProgressiveOverloadApp.Shared.Data.Models
+
+<MudButton @onclick="OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">
+    Add New Workout
+</MudButton>
+
+<MudGrid Spacing="3">
+    @foreach (var workout in MyWorkouts)
+    {
+        <MudItem xs="12" sm="6" md="4" lg="3">
+            <WorkoutCard Workout="workout" />
+        </MudItem>
+    }
+</MudGrid>
+
+<style>
+    .blur-background {
+        backdrop-filter: blur(10px);
+    }
+</style>
+
+@code {
+    private List<Workout> MyWorkouts = new List<Workout>();
+
+    private async Task OpenDialogAsync()
+    {
+        var options = new DialogOptions
+            {
+                BackgroundClass = "blur-background",
+                CloseOnEscapeKey = true
+            };
+
+        var dialog = await DialogService.ShowAsync<AddWorkoutDialog>("Add New Workout", options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled && result.Data is Workout newWorkout)
+        {
+            MyWorkouts.Add(newWorkout);
+        }
+    }
+}
